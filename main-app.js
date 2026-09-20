@@ -1,89 +1,9 @@
 window.WEB_APP_URL="https://script.google.com/macros/s/AKfycbxQr552AhiEq2F_r4TfjWG0XaPBOKRWaN92fj2eNgUtfpnawHbJe8TfMRjxEtIzwn_aTw/exec";
-window.HariPria = {"1":"Minggu","2":"Senin","3":"Selasa","4":"Rabu","5":"Kamis","6":"Jumat","7":"Sabtu"};
-window.HariWanita = {"1":"Kamis","2":"Jumat", 
-"3":"Sabtu","4":"Minggu","5":"Senin","6":"Selasa","7":"Rabu"};
-document.addEventListener("contextmenu",e=>e.preventDefault());
-document.addEventListener("copy",e=>e.preventDefault());
-document.addEventListener("cut",e=>e.preventDefault());
-function switchTab(t) {
-  const e = t === 'refleksi';
-  const secRef = document.getElementById('section-refleksi');
-  const secPas = document.getElementById('section-pasangan');
-  const tabRef = document.getElementById('tab-refleksi');
-  const tabPas = document.getElementById('tab-pasangan');
-  secRef.classList.toggle('hidden', !e);
-  secPas.classList.toggle('hidden', e);
-  const activeSec = e ? secRef : secPas;
-  activeSec.classList.remove('animate-fade-in');
-  void activeSec.offsetWidth;
-  activeSec.classList.add('animate-fade-in');
-  tabRef.classList.toggle('active', e);
-  tabPas.classList.toggle('active', !e);
-  document.getElementById('hasilContainer').classList.add('hidden');
-  document.getElementById('boxError').classList.add('hidden');
-}
-function tampilkanError(t) {
-  setLoading(false);
-  const e = document.getElementById('boxError'), n = document.getElementById('pesanError');
-  n.textContent = t;
-  e.classList.remove('hidden');
-  document.getElementById('hasilContainer').classList.add('hidden');
-}
-function tutupError() {
-  document.getElementById('boxError').classList.add('hidden');
-}
-function setLoading(t) {
-  const btnRefleksi = document.getElementById('btn-proses-refleksi') || document.querySelector('#section-refleksi .btn-primary');
-  const btnPasangan = document.getElementById('btn-proses-pasangan') || document.querySelector('#section-pasangan .btn-primary');
-  document.getElementById('loading').classList.toggle('hidden', !t);
-  if (btnRefleksi) btnRefleksi.disabled = t;
-  if (btnPasangan) btnPasangan.disabled = t;
-  if (t) {
-    document.getElementById('hasilContainer').classList.add('hidden');
-    document.getElementById('boxError').classList.add('hidden');
-  }
-}
-function filterInputRealtime(t) {
-  let e = t.value;
-  e = e.replace(/[^a-wyzA-WYZ\s]/g, '');
-  e = e.replace(/\s+/g, ' ');
-  let n = e.split(' ');
-  if (n.length > 5) {
-    n = n.slice(0, 5);
-  }
-  const maxKarakterPerKata = 20;
-  n = n.map(kata => kata.length > maxKarakterPerKata ? kata.substring(0, maxKarakterPerKata) : kata);
-  e = n.join(' ');
-  if (t.value.endsWith(' ') && !e.endsWith(' ')) {
-    e += ' ';
-  }
-  t.value = e.toUpperCase();
-}
+window.HariPria={"1":"Minggu","2":"Senin","3":"Selasa","4":"Rabu","5":"Kamis","6":"Jumat","7":"Sabtu"};window.HariWanita={"1":"Kamis","2":"Jumat","3":"Sabtu","4":"Minggu","5":"Senin","6":"Selasa","7":"Rabu"};document.addEventListener("contextmenu",e=>e.preventDefault());document.addEventListener("copy",e=>e.preventDefault());document.addEventListener("cut",e=>e.preventDefault());
+function switchTab(t){const e=t==='refleksi';const secRef=document.getElementById('section-refleksi');const secPas=document.getElementById('section-pasangan');const tabRef=document.getElementById('tab-refleksi');const tabPas=document.getElementById('tab-pasangan');secRef.classList.toggle('hidden',!e);secPas.classList.toggle('hidden',e);const activeSec=e?secRef:secPas;activeSec.classList.remove('animate-fade-in');void activeSec.offsetWidth;activeSec.classList.add('animate-fade-in');tabRef.classList.toggle('active',e);tabPas.classList.toggle('active',!e);document.getElementById('hasilContainer').classList.add('hidden');document.getElementById('boxError').classList.add('hidden');}function tampilkanError(t){setLoading(false);const e=document.getElementById('boxError'),n=document.getElementById('pesanError');n.textContent=t;e.classList.remove('hidden');document.getElementById('hasilContainer').classList.add('hidden');}function tutupError(){document.getElementById('boxError').classList.add('hidden');}
+function setLoading(t) {const btnRefleksi=document.getElementById('btn-proses-refleksi')||document.querySelector('#section-refleksi .btn-primary');const btnPasangan=document.getElementById('btn-proses-pasangan')||document.querySelector('#section-pasangan .btn-primary');document.getElementById('loading').classList.toggle('hidden',!t);if(btnRefleksi)btnRefleksi.disabled=t;if(btnPasangan)btnPasangan.disabled=t;if(t){document.getElementById('hasilContainer').classList.add('hidden');document.getElementById('boxError').classList.add('hidden');}}function filterInputRealtime(t){let e=t.value;e=e.replace(/[^a-wyzA-WYZ\s]/g,'');e=e.replace(/\s+/g,' ');let n=e.split(' ');if(n.length>5){n=n.slice(0,5);}const maxKarakterPerKata=20;n=n.map(kata=>kata.length>maxKarakterPerKata?kata.substring(0,maxKarakterPerKata):kata);e=n.join(' ');if(t.value.endsWith(' ')&&!e.endsWith(' ')){e+=' ';}t.value=e.toUpperCase();}
 function validasiNama(a){if("string"!=typeof a||!a.trim())return{status:"error",valid:!1,inputBersih:a,pesan:"Input tidak valid: Teks tidak boleh kosong."};const b=a.trim().replace(/\s+/g," ");if(/[xX]/.test(b))return{status:"error",valid:!1,inputBersih:b,pesan:"Input tidak valid: Mengandung huruf X/x yang tidak diizinkan."};if(/\d/.test(b))return{status:"error",valid:!1,inputBersih:b,pesan:"Input tidak valid: Mengandung angka yang tidak diizinkan."};if(/[^a-zA-Z\s]/.test(b))return{status:"error",valid:!1,inputBersih:b,pesan:"Input tidak valid: Mengandung simbol, tanda petik, atau karakter khusus."};const c=b.split(" ");if(c.length>5)return{status:"error",valid:!1,inputBersih:b,pesan:"Input tidak valid: Jumlah kata tidak boleh lebih dari 5 kata."};for(let d of c){const e=d.length>25?d.substring(0,25):d;if(d.length<2||d.length>25)return{status:"error",valid:!1,inputBersih:b,pesan:`Input tidak valid: Kata '${e}' harus berpanjang antara 2 hingga 25 karakter.`};if(2===d.length&&!/[aeiouAEIOU]/i.test(d))return{status:"error",valid:!1,inputBersih:b,pesan:`Input tidak valid: Kata 2 karakter '${e}' tidak boleh berupa dua konsonan beruntun.`}}const f="[aeiouAEIOU]|(?:y|Y)(?=\\s|$)",g="[^aeiouAEIOU\\s]";if(/([^aeiouAEIOU\s])\1{2,}|([aeiouAEIOU])\2{2,}/i.test(b))return{status:"error",valid:!1,inputBersih:b,pesan:"Input tidak valid: Terdapat 3 atau lebih huruf identik berurutan."};if(new RegExp(`(?:${f}){3,}`,"i").test(b)){if(!new RegExp(`${g}(?:${f}){3,}${g}`,"i").test(b))return{status:"error",valid:!1,inputBersih:b,pesan:"Input tidak valid: Pola vokal beruntun tidak diapit konsonan (abnormal)."}}if(/(?:[b-df-hj-np-tv-z]|y(?!\s|$)){3,}/i.test(b)){const h=new RegExp(`(?:${f})(?:[b-df-hj-np-tv-z]|y(?!\\s|$)){3,4}(?:${f})`,"i").test(b),i=new RegExp(`(kh|dz|dj|sh|sy|th|ng|ny)[^aeiouAEIOU\\s]{0,2}(?:${f})`,"i").test(b);if(!h&&!i)return{status:"error",valid:!1,inputBersih:b,pesan:"Input tidak valid: Pola konsonan beruntun tidak valid (abnormal)."}}return{status:"success",valid:!0,inputBersih:b,pesan:"Input valid."}}
-async function kirimRequest(t) {
-  try {
-    const e = await fetch(WEB_APP_URL, {
-      method: 'POST',
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      mode: "cors",
-      redirect: "follow",
-      body: JSON.stringify(t)
-    });
-    const n = await e.text();
-    let resData;
-    try {
-      resData = JSON.parse(n);
-    } catch (err) {
-      throw new Error("Server mengembalikan respons bukan JSON (kemungkinan crash script).");
-    }
-    if (resData.status === "error") {
-      throw new Error(resData.pesan || "Terjadi kesalahan di server.");
-    }
-    return resData;
-  } catch (t) {
-    throw new Error('Gagal terhubung ke server: ' + t.message);
-  }
-}
+async function kirimRequest(t){try{const e=await fetch(WEB_APP_URL,{method:'POST',headers:{"Content-Type":"text/plain;charset=utf-8"},mode:"cors",redirect:"follow",body:JSON.stringify(t)});const n=await e.text();let resData;try{resData=JSON.parse(n);}catch(err){throw new Error("Server mengembalikan respons bukan JSON (kemungkinan crash script).");}if(resData.status==="error"){throw new Error(resData.pesan||"Terjadi kesalahan di server.");}return resData;}catch(t){throw new Error('Gagal terhubung ke server: '+t.message);}}
 async function jalankanRefleksi() {
   const inputNama = document.getElementById('inputNamaRefleksi').value;
   const e = validasiNama(inputNama);
